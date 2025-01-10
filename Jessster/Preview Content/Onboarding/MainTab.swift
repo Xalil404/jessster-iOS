@@ -24,10 +24,10 @@ struct MainTab: View {
         }
     var body: some View {
             TabView {
-                // Placeholder for Home Feed
-                Text("Feature one for home feed")
+                // Placeholder for BirthdayListView
+                HomeView()
                     .tabItem {
-                        Label("Home", systemImage: "house.fill")
+                    Label("Home", systemImage: "house.fill")
                     }
                 
                 // Placeholder for Video feed
