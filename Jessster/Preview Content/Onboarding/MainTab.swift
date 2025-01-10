@@ -30,11 +30,11 @@ struct MainTab: View {
                     Label("Home", systemImage: "house.fill")
                     }
                 
-                // Placeholder for Video feed
-                Text("Feature Two for video feed")
+                VideoTabView()
                     .tabItem {
-                        Label("Video", systemImage: "video.fill")
+                    Label("Video", systemImage: "video.fill")
                     }
+                
                 
                 // Placeholder for Categories
                 Text("Feature Three for categories")

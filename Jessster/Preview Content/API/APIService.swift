@@ -92,4 +92,38 @@ class APIService {
         
         task.resume()
     }
+
+
+
+    func fetchVideos(language: String, completion: @escaping (Result<[Video], Error>) -> Void) {
+        let urlString = "https://jessster-476efeac7498.herokuapp.com/api/videos/"
+        var urlComponents = URLComponents(string: urlString)!
+        urlComponents.queryItems = [URLQueryItem(name: "lang", value: language)] // Pass language as a query parameter
+        
+        guard let url = urlComponents.url else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 400, userInfo: nil)))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "No data received", code: 500, userInfo: nil)))
+                return
+            }
+            
+            do {
+                let videos = try JSONDecoder().decode([Video].self, from: data)
+                completion(.success(videos))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        
+        task.resume()
+    }
 }
