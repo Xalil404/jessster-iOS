@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		52A447A72D31560F00FB10E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 52A447A52D31560700FB10E2 /* .gitignore */; };
+		52A447AA2D31562100FB10E2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A447A82D31561D00FB10E2 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		52A4478F2D3155FD00FB10E2 /* Jessster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jessster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52A447A52D31560700FB10E2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		52A447A82D31561D00FB10E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +40,8 @@
 			isa = PBXGroup;
 			children = (
 				52A447912D3155FD00FB10E2 /* Jessster */,
+				52A447A82D31561D00FB10E2 /* README.md */,
+				52A447A52D31560700FB10E2 /* .gitignore */,
 				52A447902D3155FD00FB10E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +118,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A447A72D31560F00FB10E2 /* .gitignore in Resources */,
+				52A447AA2D31562100FB10E2 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
