@@ -7,9 +7,9 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchText: String = ""  // Search text entered by the user
-    @State private var searchResults: [SearchResult] = []  // Search results returned from the API
-    @State private var isLoading: Bool = false  // Loading state while searching
+    @State private var searchText: String = ""       // Search text entered by the user
+    @State private var searchResults: [SearchResult] = [] // Search results returned from the API
+    @State private var isLoading: Bool = false      // Loading state while searching
     @State private var errorMessage: String? = nil  // Error message, if any
     
     // Function to perform the actual search
@@ -36,6 +36,27 @@ struct SearchView: View {
         }
     }
     
+    // Function to convert SearchResult to Post
+    private func convertToPost(_ searchResult: SearchResult) -> Post {
+        return Post(
+            id: searchResult.id,
+            title: searchResult.title,
+            slug: searchResult.slug,
+            author: searchResult.author,
+            featuredImage: searchResult.featuredImage,
+            excerpt: searchResult.excerpt,
+            content: searchResult.content,
+            status: searchResult.status,
+            category: searchResult.category,
+            language: searchResult.language,
+            numberOfViews: searchResult.numberOfViews,
+            likesCount: searchResult.likesCount,
+            commentCount: searchResult.commentCount,
+            createdOn: searchResult.createdOn,
+            updatedOn: searchResult.updatedOn
+        )
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -43,7 +64,6 @@ struct SearchView: View {
                     // Cancel Button
                     Button(action: {
                         // Go back to the previous view
-                        // This will dismiss the current view
                         UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
                     }) {
                         Text("Cancel")
@@ -56,16 +76,26 @@ struct SearchView: View {
                     TextField("Search for something...", text: $searchText)
                         .padding()
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .onChange(of: searchText, perform: { _ in
-                            performSearch()  // Trigger search whenever text changes
-                        })
                         .padding(.horizontal)
                     
                     Spacer()  // Push cancel and search field to the left
                 }
                 
+                // Submit Button
+                Button(action: {
+                    performSearch()  // Trigger search when the button is pressed
+                }) {
+                    Text("Submit")
+                        .font(.headline)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding(.top)
+                
                 // Text under the search input field
-                Text("Enter a search term to find results.")
+                Text("Enter a search term and press Submit to find results.")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.horizontal)
@@ -87,7 +117,10 @@ struct SearchView: View {
                 // Results Section
                 if !searchResults.isEmpty {
                     List(searchResults, id: \.id) { result in
-                        Text(result.title)  // Assuming 'SearchResult' has a 'title' field
+                        // Convert SearchResult to Post before passing to PostDetailView
+                        NavigationLink(destination: PostDetailView(post: convertToPost(result))) {
+                            Text(result.title)  // Assuming 'SearchResult' has a 'title' field
+                        }
                     }
                     .padding(.top)
                 } else if !isLoading {
@@ -104,7 +137,6 @@ struct SearchView: View {
         }
     }
 }
-
 
 
 struct SearchView_Previews: PreviewProvider {

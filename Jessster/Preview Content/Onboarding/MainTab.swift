@@ -35,12 +35,11 @@ struct MainTab: View {
                     Label("Video", systemImage: "video.fill")
                     }
                 
-                
-                // Placeholder for Categories
-                Text("Feature Three for categories")
+                SectionsView()
                     .tabItem {
-                        Label("Categories", systemImage: "square.grid.2x2")
+                    Label("Categories", systemImage: "square.grid.2x2")
                     }
+                
 
                 // Placeholder for Profile
                 Text("Feature four for profile")

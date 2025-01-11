@@ -8,7 +8,7 @@ import Foundation
 
 // Model for search results (adjust to fit your actual data structure)
 
-struct SearchResult: Decodable {
+struct SearchResult: Identifiable, Decodable {
     let id: Int
     let title: String
     let slug: String
@@ -37,6 +37,7 @@ struct SearchResult: Decodable {
         case updatedOn = "updated_on"
     }
 }
+
 
 struct SearchResultsResponse: Decodable {
     let results: [SearchResult]

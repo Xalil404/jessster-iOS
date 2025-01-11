@@ -212,5 +212,123 @@ class APIService {
         task.resume()
     }
 
+    // Function to fetch most viewed posts
+       func fetchMostViewedPosts(language: String, completion: @escaping (Result<[Post], Error>) -> Void) {
+           // Construct the query URL for fetching the posts, including language, sort, and order parameters
+           let urlString = "https://jessster-476efeac7498.herokuapp.com/api/posts/?sort_by=views&order=desc&language=\(language)"
+           print("Fetching most viewed posts from URL: \(urlString)") // For debugging
+           
+           guard let url = URL(string: urlString) else {
+               completion(.failure(NSError(domain: "Invalid URL", code: 400, userInfo: nil)))
+               return
+           }
 
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               if let error = error {
+                   completion(.failure(error))
+                   return
+               }
+               
+               guard let data = data else {
+                   completion(.failure(NSError(domain: "No data received", code: 404, userInfo: nil)))
+                   return
+               }
+               
+               // Debugging: Print the raw response data
+               if let rawString = String(data: data, encoding: .utf8) {
+                   print("Raw response data: \(rawString)")
+               }
+
+               do {
+                   let decoder = JSONDecoder()
+                   let posts = try decoder.decode([Post].self, from: data) // Decoding the response to Post model
+                   completion(.success(posts))  // Return the posts array
+               } catch {
+                   completion(.failure(error))
+               }
+           }
+
+           task.resume()
+       }
+    
+    // Function to fetch most liked posts
+    func fetchMostLikedPosts(language: String, completion: @escaping (Result<[Post], Error>) -> Void) {
+        // Construct the query URL for fetching the posts, including language, sort, and order parameters
+        let urlString = "https://jessster-476efeac7498.herokuapp.com/api/posts/?sort_by=likes&order=desc&language=\(language)"
+        print("Fetching most liked posts from URL: \(urlString)") // For debugging
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 400, userInfo: nil)))
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "No data received", code: 404, userInfo: nil)))
+                return
+            }
+            
+            // Debugging: Print the raw response data
+            if let rawString = String(data: data, encoding: .utf8) {
+                print("Raw response data: \(rawString)")
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let posts = try decoder.decode([Post].self, from: data) // Decoding the response to Post model
+                completion(.success(posts))  // Return the posts array
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        task.resume()
+    }
+    
+    // Function to fetch most commented posts
+    func fetchMostCommentedPosts(language: String, completion: @escaping (Result<[Post], Error>) -> Void) {
+        // Construct the query URL for fetching the posts, including language, sort, and order parameters
+        let urlString = "https://jessster-476efeac7498.herokuapp.com/api/posts/?sort_by=comments&order=desc&language=\(language)"
+        print("Fetching most commented posts from URL: \(urlString)") // For debugging
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 400, userInfo: nil)))
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "No data received", code: 404, userInfo: nil)))
+                return
+            }
+            
+            // Debugging: Print the raw response data
+            if let rawString = String(data: data, encoding: .utf8) {
+                print("Raw response data: \(rawString)")
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let posts = try decoder.decode([Post].self, from: data) // Decoding the response to Post model
+                completion(.success(posts))  // Return the posts array
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        task.resume()
+    }
+
+
+    
 }
