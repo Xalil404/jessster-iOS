@@ -12,6 +12,8 @@ struct SearchView: View {
     @State private var isLoading: Bool = false      // Loading state while searching
     @State private var errorMessage: String? = nil  // Error message, if any
     
+    @Environment(\.colorScheme) var colorScheme // Detect the current color scheme
+    
     // Function to perform the actual search
     private func performSearch() {
         guard !searchText.isEmpty else {
@@ -57,42 +59,35 @@ struct SearchView: View {
         )
     }
     
+    
     var body: some View {
         NavigationView {
             VStack {
+                // Image Header
                 HStack {
-                    // Cancel Button
-                    Button(action: {
-                        // Go back to the previous view
-                        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-                    }) {
-                        Text("Cancel")
-                            .font(.headline)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(.leading)
-                    
-                    // Search Input Field
+                    // Conditionally use different images for light and dark mode
+                    Image(colorScheme == .dark ? "TheJesssterTimesLogoDark" : "TheJesssterTimesLogo")
+                        .resizable()
+                        .scaledToFit() // Ensure the image scales to fit its container
+                        .frame(height: 50) // Adjust the height of the logo
+                        .padding(.horizontal) // Add horizontal padding to ensure it doesn't touch the edges
+                    Spacer() // Push the image to the left
+                }
+                .frame(maxWidth: .infinity) // Make the HStack span the entire width of the screen
+                .padding(.top) // Add top padding to separate it from the rest of the content
+                
+                // Search Input Field
+                HStack {
                     TextField("Search for something...", text: $searchText)
                         .padding()
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal)
+                        .onSubmit { // Trigger search on Enter/Return key press
+                            performSearch()
+                        }
                     
                     Spacer()  // Push cancel and search field to the left
                 }
-                
-                // Submit Button
-                Button(action: {
-                    performSearch()  // Trigger search when the button is pressed
-                }) {
-                    Text("Submit")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding(.top)
                 
                 // Text under the search input field
                 Text("Enter a search term and press Submit to find results.")
@@ -116,13 +111,59 @@ struct SearchView: View {
                 
                 // Results Section
                 if !searchResults.isEmpty {
-                    List(searchResults, id: \.id) { result in
-                        // Convert SearchResult to Post before passing to PostDetailView
-                        NavigationLink(destination: PostDetailView(post: convertToPost(result))) {
-                            Text(result.title)  // Assuming 'SearchResult' has a 'title' field
+                    ScrollView {
+                        LazyVStack(spacing: 16) {  // LazyVStack to stack items vertically
+                            ForEach(searchResults) { result in
+                                NavigationLink(
+                                    destination: PostDetailView(post: convertToPost(result)),  // Pass the converted result to PostDetailView
+                                    label: {
+                                        HStack(spacing: 16) {  // Use HStack to align title and image side by side
+                                            VStack(alignment: .leading, spacing: 8) {
+                                                Text(result.title)
+                                                    .font(.headline)
+                                                    .foregroundColor(.black)  // Change title color to black
+                                                    .lineLimit(4)  // Allow title to show up to 4 lines
+                                                    .truncationMode(.tail)  // Truncate the title with "..." if it exceeds 4 lines
+                                                Spacer()
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .leading)  // Title on the left, taking all available space
+                                            
+                                        
+                                            // Check if there's a featured image
+                                            if !result.featuredImage.isEmpty {
+                                                let fullImageUrl = "https://res.cloudinary.com/dbm8xbouw/" + result.featuredImage
+                                                AsyncImage(url: URL(string: fullImageUrl)) { phase in
+                                                    switch phase {
+                                                    case .empty:
+                                                        ProgressView() // Placeholder while loading
+                                                    case .success(let image):
+                                                        image.resizable()
+                                                            .scaledToFill()
+                                                            .frame(width: 100, height: 100)
+                                                            .cornerRadius(8)
+                                                    case .failure:
+                                                        Image(systemName: "photo") // Fallback image on failure
+                                                            .resizable()
+                                                            .scaledToFill()
+                                                            .frame(width: 100, height: 100)
+                                                            .cornerRadius(8)
+                                                    @unknown default:
+                                                        EmptyView()
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        .padding()
+                                        .background(Color.white)
+                                        .cornerRadius(12)
+                                        .shadow(radius: 8)
+                                    }
+                                )
+                            }
                         }
+                        .padding()
                     }
-                    .padding(.top)
                 } else if !isLoading {
                     // Show a message when no results are found
                     Text("No results found.")
@@ -133,11 +174,9 @@ struct SearchView: View {
                 
                 Spacer()
             }
-            .navigationTitle("Search") // Set a navigation title
         }
     }
 }
-
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {

@@ -114,6 +114,32 @@ struct CategoryListView: View {
     }
 }
 
+
+struct CategoryButtonView: View {
+    var category: Category
+    @Binding var selectedCategory: Category?
+    
+    @Environment(\.colorScheme) var colorScheme // Detect the current color scheme
+
+    var body: some View {
+        Button(action: {
+            selectedCategory = category
+        }) {
+            Text(category.name)
+                .padding()
+                .background(selectedCategory == category
+                    ? (colorScheme == .dark ? Color.white : Color.black) // Use white in dark mode for selected
+                    : Color.gray.opacity(0.2)) // Default background color
+                .foregroundColor(selectedCategory == category
+                    ? (colorScheme == .dark ? Color.black : Color.white) // Change text color based on mode
+                    : (colorScheme == .dark ? Color.white : Color.black)) // Default text color
+                .cornerRadius(20)
+        }
+    }
+}
+
+
+/* Original categories
 struct CategoryButtonView: View {
     var category: Category
     @Binding var selectedCategory: Category?
@@ -124,12 +150,13 @@ struct CategoryButtonView: View {
         }) {
             Text(category.name)
                 .padding()
-                .background(selectedCategory == category ? Color.blue : Color.gray.opacity(0.2)) // Change color when selected
+                .background(selectedCategory == category ? Color.black : Color.gray.opacity(0.2)) // Change color when selected
                 .foregroundColor(selectedCategory == category ? .white : .black) // Change text color when selected
                 .cornerRadius(10)
         }
     }
 }
+*/
 
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {

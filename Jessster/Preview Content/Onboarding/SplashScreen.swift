@@ -15,6 +15,8 @@ struct SplashScreen: View {
         VStack {
             Spacer()
             
+            .frame(height: 150)
+            
             // Main splash image at the top
             Image("logo")
                 .resizable()

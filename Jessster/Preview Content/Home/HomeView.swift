@@ -8,6 +8,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var showSearch = false // To track the search screen navigation
+    @Environment(\.colorScheme) var colorScheme // Detect the current color scheme
     
     var body: some View {
         NavigationView {
@@ -15,21 +16,22 @@ struct HomeView: View {
                 // Custom header
                 HStack {
                     Spacer()
-                    Text("The Jessster Times")
-                        .font(.custom("Engravers' Old English BT", size: 24)) // Adjust to New York Times-like font
-                        .fontWeight(.bold) // Optional: Make the text bold
-                        .foregroundColor(.black)
-                        .padding(.leading, 46) // Add custom padding to push text slightly to the right
-                        .frame(maxWidth: .infinity) // Make text take all available space
-                        .multilineTextAlignment(.center) // Center the text within the frame
+                    // Conditionally use different images for light and dark mode
+                    Image(colorScheme == .dark ? "TheJesssterTimesLogoDark" : "TheJesssterTimesLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50) // Adjust the height of the logo
+                        .padding(.leading, 46) // Custom padding
+                   
                     Spacer()
                     
                     NavigationLink(destination: SearchView(), isActive: $showSearch) {
                         Image(systemName: "magnifyingglass") // Search icon
                             .padding()
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black) // Icon color changes based on mode
                     }
                 }
+                             
 
                 // Insert the CategoriesView component here
                 CategoriesView()
@@ -43,26 +45,6 @@ struct HomeView: View {
 }
 
 
-
-
-/*
-struct HomeView: View {
-    var body: some View {
-        NavigationView {
-            VStack {
-                // Any header or other UI elements for the Home screen can go here
-
-                // Insert the CategoriesView component here
-                CategoriesView()
-                    .background(Color.white) // You can adjust the background as needed
-    
-                Spacer() // Push content to the top
-            }
-            .navigationTitle("Home") // Set a navigation title for the Home screen
-        }
-    }
-}
-*/
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()

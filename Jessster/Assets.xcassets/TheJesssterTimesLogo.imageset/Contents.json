@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "TheJesssterTimesLogo.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "TheJesssterTimesLogo 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "TheJesssterTimesLogo 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
