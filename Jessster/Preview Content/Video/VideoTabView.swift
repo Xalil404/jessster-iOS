@@ -14,77 +14,103 @@ struct VideoTabView: View {
     @State private var isLoading = false
     @State private var errorMessage: String? = nil
     @State private var currentIndex = 0  // Track the current video index
+    @State private var showSearch = false // To track the search screen navigation
+    @Environment(\.colorScheme) var colorScheme  // Access the color scheme for light/dark mode
     
     var body: some View {
-        VStack {
-            // Segmented control for language selection
-            Picker("Select Language", selection: $selectedLanguage) {
-                Text("English").tag("en")
-                Text("Russian").tag("ru")
-                Text("Arabic").tag("ar")
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
-
-            // Loading state for videos
-            if isLoading {
-                ProgressView("Loading Videos...")
-                    .padding()
-            } else if let errorMessage = errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .padding()
-            } else {
-                // Display video player and other video details
-                if !videos.isEmpty {
-                    ScrollView(.vertical, showsIndicators: false) {  // Change to vertical scroll
-                        VStack(spacing: 8) {  // Adjust spacing between video items
-                            ForEach(videos.indices, id: \.self) { index in
-                                VStack(spacing: 4) {  // Reduce the space between each video item
-                                    // Video Player
-                                    VideoPlayerView(videoUrl: videos[index].video)
-                                        .frame(height: 300) // Set height for the video
-
-                                    // Video Title
-                                    //Text(videos[index].title)
-                                        .font(.headline)
-                                        .padding(.top, 4)
-
-                                    // Video Description
-                                    //Text(videos[index].description)
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                        .padding(.bottom, 4)
-
-                                    // Posted Date
-                                    //Text("Posted on \(videos[index].createdAt)")
-                                        .font(.caption)
-                                        .padding(.bottom, 4)
+        NavigationView { // Add a NavigationView here
+            VStack {
+                // Logo Header
+                HStack {
+                    Spacer()
+                    // Conditionally use different images for light and dark mode
+                    Image(colorScheme == .dark ? "TheJesssterTimesLogoDark" : "TheJesssterTimesLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50) // Adjust the height of the logo
+                        .padding(.leading, 46) // Custom padding
+                    
+                    // Search Icon Button
+                    NavigationLink(destination: SearchView(), isActive: $showSearch) {
+                        Image(systemName: "magnifyingglass") // Search icon
+                            .padding()
+                            .foregroundColor(colorScheme == .dark ? .white : .black) // Icon color changes based on mode
+                    }
+                    
+                    Spacer()
+                    
+                }
+                .padding(.top, 1) // Add some padding on top for spacing
+                
+                // Segmented control for language selection
+                Picker("Select Language", selection: $selectedLanguage) {
+                    Text("English").tag("en")
+                    Text("Russian").tag("ru")
+                    Text("Arabic").tag("ar")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+                
+                // Loading state for videos
+                if isLoading {
+                    ProgressView("Loading Videos...")
+                        .padding()
+                } else if let errorMessage = errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
+                } else {
+                    // Display video player and other video details
+                    if !videos.isEmpty {
+                        ScrollView(.vertical, showsIndicators: false) {  // Change to vertical scroll
+                            VStack(spacing: 8) {  // Adjust spacing between video items
+                                ForEach(videos.indices, id: \.self) { index in
+                                    VStack(spacing: 4) {  // Reduce the space between each video item
+                                        // Video Player
+                                        VideoPlayerView(videoUrl: videos[index].video)
+                                            .frame(height: 300) // Set height for the video
+                                        
+                                        // Video Title
+                                        //Text(videos[index].title)
+                                            .font(.headline)
+                                            .padding(.top, 4)
+                                        
+                                        // Video Description
+                                        //Text(videos[index].description)
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                            .padding(.bottom, 4)
+                                        
+                                        // Posted Date
+                                        //Text("Posted on \(videos[index].createdAt)")
+                                            .font(.caption)
+                                            .padding(.bottom, 4)
+                                    }
+                                    .padding([.leading, .trailing], 8)  // Reduce the horizontal padding for each video
                                 }
-                                .padding([.leading, .trailing], 8)  // Reduce the horizontal padding for each video
                             }
                         }
+                    } else {
+                        Text("No videos available.")
                     }
-                } else {
-                    Text("No videos available.")
                 }
+                
+                Spacer()
             }
-
-            Spacer()
-        }
-        .onAppear {
-            // Set up the audio session before the video plays
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
-                try? AVAudioSession.sharedInstance().setActive(true)
-            } catch {
-                print("Failed to set up audio session: \(error)")
+            .onAppear {
+                // Set up the audio session before the video plays
+                do {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
+                    try? AVAudioSession.sharedInstance().setActive(true)
+                } catch {
+                    print("Failed to set up audio session: \(error)")
+                }
+                
+                fetchVideos()
             }
-            
-            fetchVideos()
-        }
-        .onChange(of: selectedLanguage) { _ in
-            fetchVideos()
+            .onChange(of: selectedLanguage) { _ in
+                fetchVideos()
+            }
         }
     }
     
