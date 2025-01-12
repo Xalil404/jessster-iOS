@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5297F3A62D344E8E009E44B1 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 5297F3A52D344E8E009E44B1 /* SwiftSoup */; };
 		52A447A72D31560F00FB10E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 52A447A52D31560700FB10E2 /* .gitignore */; };
 		52A447AA2D31562100FB10E2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A447A82D31561D00FB10E2 /* README.md */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5297F3A62D344E8E009E44B1 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +76,7 @@
 			);
 			name = Jessster;
 			packageProductDependencies = (
+				5297F3A52D344E8E009E44B1 /* SwiftSoup */,
 			);
 			productName = Jessster;
 			productReference = 52A4478F2D3155FD00FB10E2 /* Jessster.app */;
@@ -103,6 +106,9 @@
 			);
 			mainGroup = 52A447862D3155FD00FB10E2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5297F3A42D344E8E009E44B1 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 52A447902D3155FD00FB10E2 /* Products */;
 			projectDirPath = "";
@@ -337,6 +343,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5297F3A42D344E8E009E44B1 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5297F3A52D344E8E009E44B1 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5297F3A42D344E8E009E44B1 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 52A447872D3155FD00FB10E2 /* Project object */;
 }
