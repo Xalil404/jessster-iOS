@@ -7,20 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52017D9C2D357BBC00626DAE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 52017D9B2D357BBC00626DAE /* GoogleSignIn */; };
+		52017D9E2D357BBC00626DAE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52017D9D2D357BBC00626DAE /* GoogleSignInSwift */; };
 		5297F3A62D344E8E009E44B1 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 5297F3A52D344E8E009E44B1 /* SwiftSoup */; };
 		52A447A72D31560F00FB10E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 52A447A52D31560700FB10E2 /* .gitignore */; };
 		52A447AA2D31562100FB10E2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A447A82D31561D00FB10E2 /* README.md */; };
+		E31632A54AD758F2BC59255F /* Pods_Jessster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DE034D2276F400E7222AC1 /* Pods_Jessster.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51EF7045E06380B511E4E45A /* Pods-Jessster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jessster.release.xcconfig"; path = "Target Support Files/Pods-Jessster/Pods-Jessster.release.xcconfig"; sourceTree = "<group>"; };
 		52A4478F2D3155FD00FB10E2 /* Jessster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jessster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A447A52D31560700FB10E2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		52A447A82D31561D00FB10E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C3DE034D2276F400E7222AC1 /* Pods_Jessster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jessster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E152857D49F4BA757786258F /* Pods-Jessster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jessster.debug.xcconfig"; path = "Target Support Files/Pods-Jessster/Pods-Jessster.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		52017D972D356CE200626DAE /* Exceptions for "Jessster" folder in "Jessster" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 52A4478E2D3155FD00FB10E2 /* Jessster */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		52A447912D3155FD00FB10E2 /* Jessster */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				52017D972D356CE200626DAE /* Exceptions for "Jessster" folder in "Jessster" target */,
+			);
 			path = Jessster;
 			sourceTree = "<group>";
 		};
@@ -32,6 +51,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5297F3A62D344E8E009E44B1 /* SwiftSoup in Frameworks */,
+				E31632A54AD758F2BC59255F /* Pods_Jessster.framework in Frameworks */,
+				52017D9C2D357BBC00626DAE /* GoogleSignIn in Frameworks */,
+				52017D9E2D357BBC00626DAE /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +67,8 @@
 				52A447A82D31561D00FB10E2 /* README.md */,
 				52A447A52D31560700FB10E2 /* .gitignore */,
 				52A447902D3155FD00FB10E2 /* Products */,
+				A0792B7C8E42112C5F65E300 /* Pods */,
+				96777BD23FD56E05FEC3C463 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +80,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		96777BD23FD56E05FEC3C463 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE034D2276F400E7222AC1 /* Pods_Jessster.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A0792B7C8E42112C5F65E300 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E152857D49F4BA757786258F /* Pods-Jessster.debug.xcconfig */,
+				51EF7045E06380B511E4E45A /* Pods-Jessster.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -63,9 +104,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52A447A22D31560100FB10E2 /* Build configuration list for PBXNativeTarget "Jessster" */;
 			buildPhases = (
+				42BD3923AE91CAEDE0038290 /* [CP] Check Pods Manifest.lock */,
 				52A4478B2D3155FD00FB10E2 /* Sources */,
 				52A4478C2D3155FD00FB10E2 /* Frameworks */,
 				52A4478D2D3155FD00FB10E2 /* Resources */,
+				E5AD7880AABC04F640776BF5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -77,6 +120,8 @@
 			name = Jessster;
 			packageProductDependencies = (
 				5297F3A52D344E8E009E44B1 /* SwiftSoup */,
+				52017D9B2D357BBC00626DAE /* GoogleSignIn */,
+				52017D9D2D357BBC00626DAE /* GoogleSignInSwift */,
 			);
 			productName = Jessster;
 			productReference = 52A4478F2D3155FD00FB10E2 /* Jessster.app */;
@@ -108,6 +153,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5297F3A42D344E8E009E44B1 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				52017D9A2D357BBC00626DAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 52A447902D3155FD00FB10E2 /* Products */;
@@ -130,6 +176,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		42BD3923AE91CAEDE0038290 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Jessster-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5AD7880AABC04F640776BF5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Jessster/Pods-Jessster-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Jessster/Pods-Jessster-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Jessster/Pods-Jessster-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52A4478B2D3155FD00FB10E2 /* Sources */ = {
@@ -263,15 +351,19 @@
 		};
 		52A447A32D31560100FB10E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E152857D49F4BA757786258F /* Pods-Jessster.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jessster/Jessster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Jessster/Preview Content\"";
 				DEVELOPMENT_TEAM = TGGQFAW4Y5;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Jessster/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,15 +385,19 @@
 		};
 		52A447A42D31560100FB10E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51EF7045E06380B511E4E45A /* Pods-Jessster.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jessster/Jessster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Jessster/Preview Content\"";
 				DEVELOPMENT_TEAM = TGGQFAW4Y5;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Jessster/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -345,6 +441,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		52017D9A2D357BBC00626DAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		5297F3A42D344E8E009E44B1 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -356,6 +460,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		52017D9B2D357BBC00626DAE /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52017D9A2D357BBC00626DAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		52017D9D2D357BBC00626DAE /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52017D9A2D357BBC00626DAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		5297F3A52D344E8E009E44B1 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5297F3A42D344E8E009E44B1 /* XCRemoteSwiftPackageReference "SwiftSoup" */;

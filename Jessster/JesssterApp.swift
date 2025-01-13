@@ -4,7 +4,7 @@
 //
 //  Created by TEST on 10.01.2025.
 //
-
+import GoogleSignIn
 import SwiftUI
 
 @main
@@ -15,6 +15,10 @@ struct JesssterApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onOpenURL { url in
+                                                                   GIDSignIn.sharedInstance.handle(url)  // Handle the URL for Google Sign-In
+                                                               }
         }
     }
 }
+
