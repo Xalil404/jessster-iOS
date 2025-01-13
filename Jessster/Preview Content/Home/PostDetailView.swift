@@ -47,22 +47,28 @@ struct PostDetailView: View {
                     margin-bottom: 16px;
                 }
                 h1 {
-                    font-size: 32px;
+                    font-size: 82px;
                     font-weight: bold;
                     margin-bottom: 16px;
                 }
                 .excerpt {
-                    font-size: 18px;
+                    font-size: 38px;
                     color: gray;
                     margin-bottom: 16px;
+                    padding-left: 25px; /* Add space on the left */
+                    padding-right: 25px;
                 }
                 .content {
-                    font-size: 16px;
+                    font-size: 46px;
                     margin-bottom: 16px;
+                    line-height: 1.6;
+                    padding-left: 25px; /* Add space on the left */
+                    padding-right: 25px;
                 }
                 .views {
-                    font-size: 14px;
+                    font-size: 36px;
                     color: #888;
+                    text-align: center;
                 }
             </style>
         </head>
@@ -76,13 +82,77 @@ struct PostDetailView: View {
         </html>
         """
 
+       
+
+                ZStack {
+                    // WebView for HTML content
+                    WebView(htmlContent: htmlContent)
+                        .edgesIgnoringSafeArea(.all) // Optional: Makes the WebView use the entire screen
+                    
+                    // Share button overlay
+                    VStack {
+                        Spacer()
+                        HStack {
+                            // Like button on the left
+                            Button(action: {
+                                //  likePost()  // You can implement this function later
+                            }) {
+                                HStack {
+                                    Image(systemName: "heart")
+                                    Text("Like")
+                                }
+                                .padding(8)
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                                .font(.footnote)
+                            }
+                            .padding()
+                            
+                            
+                            Spacer()
+                            Button(action: {
+                                sharePost()
+                            }) {
+                                HStack {
+                                    Image(systemName: "square.and.arrow.up")
+                                    Text("Share")
+                                }
+                                .padding(8)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                                .font(.footnote)
+                            }
+                            .padding()
+                        }
+                    }
+                }
+                .navigationTitle(post.title)
+            }
+
+            // Share functionality
+            func sharePost() {
+                guard let url = URL(string: "https://jessster.com/posts/\(post.slug)") else { return }
+                let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let rootVC = windowScene.windows.first?.rootViewController {
+                    rootVC.present(activityVC, animated: true, completion: nil)
+                }
+            }
+        }
+
+        
+        
+        /*
         // Render HTML content in WebView
         WebView(htmlContent: htmlContent)
             .edgesIgnoringSafeArea(.all) // Optional: Makes the WebView use the entire screen
             .navigationTitle(post.title)
     }
 }
-
+*/
 
 
 

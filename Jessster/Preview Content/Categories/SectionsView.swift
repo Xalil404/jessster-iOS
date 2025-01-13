@@ -54,7 +54,7 @@ struct SectionsView: View {
                 
                 Spacer()
             }
-       
+            .padding()
         }
     }
 }
