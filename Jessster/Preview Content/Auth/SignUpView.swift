@@ -40,6 +40,7 @@
      var body: some View {
          NavigationStack {
              VStack {
+                 /*
                  // Back Button
                  HStack {
                      Button(action: {
@@ -53,12 +54,13 @@
                  }
                  .padding(.top, 50)
                  .padding(.horizontal)
+                  */
                  
                  // Main Image
                  Image("logo")
                      .resizable()
                      .scaledToFit()
-                     .frame(width: 130, height: 130)
+                     .frame(width: 200, height: 200)
                  
                  // Title
                  Text("Sign Up")
