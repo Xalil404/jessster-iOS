@@ -10,16 +10,38 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme
     @State private var isLoggedOut = false
     @State private var user: User?
     @State private var isLoading = true
     @State private var errorMessage: String = ""
-    @State private var isEditing = false // Track if the user is editing the profile
-    
-    
+    @State private var isEditing = false
+
     var body: some View {
         NavigationView {
             VStack {
+                // Logo Header
+                HStack {
+                    Spacer()
+                    // Conditionally use different images for light and dark mode
+                    Image(colorScheme == .dark ? "TheJesssterTimesLogoDark" : "TheJesssterTimesLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50) // Adjust the height of the logo
+                        .padding(.leading, 46) // Custom padding
+                    
+                    // Settings Icon Button
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gearshape") // Settings icon
+                            .padding()
+                            .foregroundColor(colorScheme == .dark ? .white : .black) // Icon color changes based on mode
+                    }
+
+                    
+                    Spacer()
+                }
+                .padding(.top, 1) // Add some padding on top for spacing
+
                 if isLoading {
                     Text("Loading user information...")
                         .font(.headline)
@@ -105,6 +127,8 @@ struct ProfileView: View {
             }
         }
     }
+
+
     
     private func logout() {
         // Clear authToken and reset user data
