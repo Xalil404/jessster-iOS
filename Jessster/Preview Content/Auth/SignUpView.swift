@@ -55,10 +55,10 @@
                  .padding(.horizontal)
                  
                  // Main Image
-                 Image("one")
+                 Image("logo")
                      .resizable()
                      .scaledToFit()
-                     .frame(width: 100, height: 100)
+                     .frame(width: 130, height: 130)
                  
                  // Title
                  Text("Sign Up")
@@ -171,10 +171,10 @@
              .alert(item: $alertItem) { error in
                  Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
              }
-             // Assuming you have a state variable to control the navigation
-             .fullScreenCover(isPresented: $isSignUpSuccessful) {
-                 MainTab() // Navigate to BirthdayListView on successful sign-in
-             }
+            
+             NavigationLink(destination: ProfileView(), isActive: $isSignUpSuccessful) {
+                                 EmptyView() // This hides the link UI
+                             }
      
          }
      }

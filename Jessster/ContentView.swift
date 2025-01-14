@@ -29,16 +29,16 @@ struct ContentView: View {
         } else {
             // Determine which view to show based on state
             if !hasSeenOnboardingView {
-                OnboardingView()
+                OnboardingView(isAuthenticated: $isAuthenticated)
                     .onDisappear {
                         // Mark onboarding as completed
                         UserDefaults.standard.set(true, forKey: "hasSeenOnboardingView")
                         hasSeenOnboardingView = true
                     }
             } else if !isAuthenticated {
-                MainTab() // Show login screen if not authenticated
+                MainTab(isAuthenticated: $isAuthenticated) // Show main tab screen if not authenticated
             } else {
-                MainTab() // Show main app view for authenticated users
+                MainTab(isAuthenticated: $isAuthenticated) // Show main tab view for authenticated users
             }
         }
     }

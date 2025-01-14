@@ -329,6 +329,90 @@ class APIService {
         task.resume()
     }
 
+        // Fetch Comments for a specific post (allow unauthenticated access)
+        func fetchComments(postSlug: String, completion: @escaping (Result<[Comment], Error>) -> Void) {
+            guard let url = URL(string: "https://jessster-476efeac7498.herokuapp.com/api/posts/\(postSlug)/comments/") else {
+                completion(.failure(APIError.invalidURL))
+                return
+            }
 
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            
+            // Allow unauthenticated access
+            if let token = UserDefaults.standard.string(forKey: "authToken") {
+                request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
+            }
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(APIError.networkError(error)))
+                    return
+                }
+
+                guard let data = data else {
+                    completion(.failure(APIError.noData))
+                    return
+                }
+
+                // Check if the response status code is valid
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    do {
+                        let comments = try JSONDecoder().decode([Comment].self, from: data)
+                        completion(.success(comments))
+                    } catch {
+                        completion(.failure(APIError.decodingError(error)))
+                    }
+                } else {
+                    completion(.failure(APIError.unknownError))
+                }
+            }.resume()
+        }
+
+        // Post a new comment (only for authenticated users)
+        func addComment(postSlug: String, content: String, completion: @escaping (Result<Void, Error>) -> Void) {
+            guard let token = UserDefaults.standard.string(forKey: "authToken"),
+                  let url = URL(string: "https://jessster-476efeac7498.herokuapp.com/api/posts/\(postSlug)/comments/") else {
+                completion(.failure(APIError.invalidURL))
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            // Include post ID along with content in the body
+            let body: [String: Any] = [
+                "content": content,
+                // Assuming the `post` field is the post ID in the backend
+                "post": postSlug
+            ]
+
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(APIError.networkError(error)))
+                    return
+                }
+
+                // Check if the response status code indicates success
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 {
+                    completion(.success(()))
+                } else {
+                    completion(.failure(APIError.unknownError))
+                }
+            }.resume()
+        }
     
 }
+
+
+
+
+
+
+
+    
+

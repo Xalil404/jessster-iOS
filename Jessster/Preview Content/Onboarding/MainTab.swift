@@ -7,8 +7,11 @@
 import SwiftUI
 
 struct MainTab: View {
-    
-    init() {
+    @Binding var isAuthenticated: Bool // Binding to isAuthenticated from ContentView
+
+    init(isAuthenticated: Binding<Bool>) {
+        self._isAuthenticated = isAuthenticated
+        
         // Customize the appearance of the Tab Bar
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -32,7 +35,7 @@ struct MainTab: View {
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
     }
-    
+
     var body: some View {
         TabView {
             // Placeholder for BirthdayListView
@@ -51,72 +54,37 @@ struct MainTab: View {
                     Label("Categories", systemImage: "square.grid.2x2")
                 }
             
-            WelcomeView()
-                .tabItem {
-                    Label("Profile", systemImage: "person.fill")
+            // Always show the Account tab, but switch between ProfileView and WelcomeView based on authentication status
+            Group {
+                if isAuthenticated {
+                    ProfileView()
+                        .tabItem {
+                            Label("Profile", systemImage: "person.fill")
+                        }
+                } else {
+                    WelcomeView()
+                        .tabItem {
+                            Label("Account", systemImage: "person.fill")
+                        }
                 }
-        }
-    }
-}
-
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTab()
-            .environment(\.colorScheme, .light) // Preview for light mode
-        MainTab()
-            .environment(\.colorScheme, .dark) // Preview for dark mode
-    }
-}
-
-
-/*
-import SwiftUI
-
-struct MainTab: View {
-    
-    init() {
-            // Customize the appearance of the Tab Bar
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor.systemGray6 // Light gray background color
-            appearance.shadowImage = nil
-            appearance.shadowColor = nil
-            
-            UITabBar.appearance().standardAppearance = appearance
-            if #available(iOS 15.0, *) {
-                UITabBar.appearance().scrollEdgeAppearance = appearance
             }
         }
-    var body: some View {
-            TabView {
-                // Placeholder for BirthdayListView
-                HomeView()
-                    .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                    }
-                
-                VideoTabView()
-                    .tabItem {
-                    Label("Video", systemImage: "video.fill")
-                    }
-                
-                SectionsView()
-                    .tabItem {
-                    Label("Categories", systemImage: "square.grid.2x2")
-                    }
-                
-                WelcomeView()
-                    .tabItem {
-                    Label("Profile", systemImage: "person.fill")
-                    }
-                
-            }
+        .onAppear {
+            // Check authentication status when MainTab appears
+            isAuthenticated = UserDefaults.standard.bool(forKey: "isAuthenticated")
         }
     }
-   
+}
+
+
+
 struct MainTabView_Previews: PreviewProvider {
+    @State static var isAuthenticated = true // You can change this value for testing
+
     static var previews: some View {
-        MainTab()
+        MainTab(isAuthenticated: $isAuthenticated)
+            .previewDevice("iPhone 12") // Change the device for preview if needed
+            .previewLayout(.sizeThatFits)
     }
 }
-*/
+

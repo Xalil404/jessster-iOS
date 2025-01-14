@@ -24,6 +24,8 @@ struct LoginView: View {
     
     @State private var appleSignInError: String?
     
+    @State private var isAuthenticated = false
+    
     // Detect the current color scheme (light or dark)
         @Environment(\.colorScheme) var colorScheme
     
@@ -47,7 +49,7 @@ struct LoginView: View {
             Image("logo")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 150, height: 150)
+                .frame(width: 220, height: 220)
             
             // Title
             Text("Login")
@@ -192,10 +194,9 @@ struct LoginView: View {
             
             Spacer()
             
-            // Navigation Link for CRUD Birthdays Screen
-                .fullScreenCover(isPresented: $isLoginSuccessful) {
-                    MainTab()
-                }
+            NavigationLink(destination: ProfileView(), isActive: $isLoginSuccessful) {
+                                EmptyView() // This hides the link UI
+                            }
         }
         .background(Color(red: 248/255, green: 247/255, blue: 245/255))
         .edgesIgnoringSafeArea(.all)

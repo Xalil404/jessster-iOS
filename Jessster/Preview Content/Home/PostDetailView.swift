@@ -4,7 +4,6 @@
 //
 //  Created by TEST on 10.01.2025.
 //
-
 import SwiftUI
 import WebKit
 
@@ -82,275 +81,99 @@ struct PostDetailView: View {
         </html>
         """
 
-       
+        ZStack {
+            // WebView for HTML content
+            WebView(htmlContent: htmlContent)
+                .edgesIgnoringSafeArea(.all) // Optional: Makes the WebView use the entire screen
 
-                ZStack {
-                    // WebView for HTML content
-                    WebView(htmlContent: htmlContent)
-                        .edgesIgnoringSafeArea(.all) // Optional: Makes the WebView use the entire screen
-                    
-                    // Share button overlay
-                    VStack {
-                        Spacer()
+            // Share button overlay
+            VStack {
+                Spacer()
+                HStack {
+                    // Like button on the left
+                    Button(action: {
+                        // likePost()  // You can implement this function later
+                    }) {
                         HStack {
-                            // Like button on the left
-                            Button(action: {
-                                //  likePost()  // You can implement this function later
-                            }) {
-                                HStack {
-                                    Image(systemName: "heart")
-                                    Text("Like")
-                                }
-                                .padding(8)
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                                .font(.footnote)
-                            }
-                            .padding()
-                            
-                            
-                            Spacer()
-                            Button(action: {
-                                sharePost()
-                            }) {
-                                HStack {
-                                    Image(systemName: "square.and.arrow.up")
-                                    Text("Share")
-                                }
-                                .padding(8)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                                .font(.footnote)
-                            }
-                            .padding()
+                            Image(systemName: "heart")
+                            Text("Like")
                         }
+                        .padding(8)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .font(.footnote)
                     }
-                }
-                .navigationTitle(post.title)
-            }
-
-            // Share functionality
-            func sharePost() {
-                guard let url = URL(string: "https://jessster.com/posts/\(post.slug)") else { return }
-                let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let rootVC = windowScene.windows.first?.rootViewController {
-                    rootVC.present(activityVC, animated: true, completion: nil)
-                }
-            }
-        }
-
-        
-        
-        /*
-        // Render HTML content in WebView
-        WebView(htmlContent: htmlContent)
-            .edgesIgnoringSafeArea(.all) // Optional: Makes the WebView use the entire screen
-            .navigationTitle(post.title)
-    }
-}
-*/
+                    .padding()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import SwiftUI
-import WebKit
-
-// WebView for rendering HTML content
-struct WebView: UIViewRepresentable {
-    let htmlContent: String
-
-    func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
-        return webView
-    }
-
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.loadHTMLString(htmlContent, baseURL: nil)
-    }
-}
-
-struct PostDetailView: View {
-    var post: Post
-
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                // Title
-                Text(post.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
-
-                // Feature Image (if available)
-                let cloudinaryBaseUrl = "https://res.cloudinary.com/dbm8xbouw/"
-                let fullImageUrl = cloudinaryBaseUrl + post.featuredImage
-
-                if let imageUrl = URL(string: fullImageUrl) {
-                    AsyncImage(url: imageUrl) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            image.resizable()
-                                .scaledToFit()
-                                .frame(height: 250)
-                                .clipped()
-                                .cornerRadius(8)
-                                .padding(.vertical)
-                        case .failure:
-                            Image(systemName: "photo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 250)
-                                .clipped()
-                                .cornerRadius(8)
-                                .padding(.vertical)
-                        @unknown default:
-                            EmptyView()
+                    // Comments button in the middle
+                    NavigationLink(destination: CommentsView(postSlug: post.slug)) {
+                        HStack {
+                            Image(systemName: "bubble.left.and.bubble.right.fill")
+                            Text("Comments")
                         }
+                        .padding(8)
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .font(.footnote)
                     }
+                    .padding(.horizontal, 30)
+
+                    Spacer()
+                    // Share button on the right
+                    Button(action: {
+                        sharePost()
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Share")
+                        }
+                        .padding(8)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .font(.footnote)
+                    }
+                    .padding()
                 }
-
-                // Excerpt
-                Text(post.excerpt)
-                    .font(.body)
-                    .foregroundColor(.gray)
-                    .padding(.bottom)
-
-                // Content - Render HTML using WebView
-                WebView(htmlContent: post.content)
-                    .frame(minHeight: 300) // Adjust height based on content
-
-                // Number of Views
-                Text("Views: \(post.numberOfViews)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom)
             }
-            .padding(.horizontal)
         }
         .navigationTitle(post.title)
     }
-}
-*/
 
+    // Share functionality
+    func sharePost() {
+        guard let url = URL(string: "https://jessster.com/posts/\(post.slug)") else { return }
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
 
-/*
-import SwiftUI
-
-struct PostDetailView: View {
-    var post: Post
-
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                // Title
-                Text(post.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
-
-                // Feature Image (if available)
-                // Base Cloudinary URL
-                let cloudinaryBaseUrl = "https://res.cloudinary.com/dbm8xbouw/"
-
-                // Construct the full image URL
-                let fullImageUrl = cloudinaryBaseUrl + post.featuredImage
-
-                if let imageUrl = URL(string: fullImageUrl) {
-                    AsyncImage(url: imageUrl) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView() // Placeholder while loading
-                        case .success(let image):
-                            image.resizable()
-                                .scaledToFit()
-                                .frame(height: 250)
-                                .clipped()
-                                .cornerRadius(8)
-                                .padding(.vertical)
-                        case .failure:
-                            Image(systemName: "photo") // Fallback image on failure
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 250)
-                                .clipped()
-                                .cornerRadius(8)
-                                .padding(.vertical)
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                }
-
-                // Excerpt
-                Text(post.excerpt)
-                    .font(.body)
-                    .foregroundColor(.gray)
-                    .padding(.bottom)
-
-                // Content - Strip HTML tags before displaying
-                Text(stripHTML(from: post.content))
-                    .font(.body)
-                    .padding(.bottom)
-
-                // Number of Views
-                Text("Views: \(post.numberOfViews)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom)
-            }
-            .padding(.horizontal)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootVC = windowScene.windows.first?.rootViewController {
+            rootVC.present(activityVC, animated: true, completion: nil)
         }
-        .navigationTitle(post.title)  // Set the navigation bar title to the post title
-    }
-
-    // Function to strip HTML tags from the content
-    func stripHTML(from text: String) -> String {
-        let modifiedText = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-        return modifiedText
     }
 }
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
