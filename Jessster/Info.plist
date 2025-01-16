@@ -14,5 +14,14 @@
             </array>
         </dict>
     </array>
+    <key>GoogleService-Info</key>
+        <string>GoogleService-Info.plist</string>
+        
+        <key>FirebaseAnalyticsCollectionEnabled</key>
+        <true/>
+        
+        <key>FirebaseAnalyticsCollectionDeactivated</key>
+        <false/>
 </dict>
 </plist>
+

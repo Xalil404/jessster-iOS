@@ -4,6 +4,7 @@
 //
 //  Created by TEST on 11.01.2025.
 //
+
 import SwiftUI
 
 struct PostsView: View {
@@ -77,6 +78,7 @@ struct PostsView: View {
         }
     }
 }
+ 
 
 struct PostsView_Previews: PreviewProvider {
     static var previews: some View {

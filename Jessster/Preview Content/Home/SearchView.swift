@@ -54,6 +54,7 @@ struct SearchView: View {
             numberOfViews: searchResult.numberOfViews,
             likesCount: searchResult.likesCount,
             commentCount: searchResult.commentCount,
+            isLiked: false,  // Set default value for `isLiked`
             createdOn: searchResult.createdOn,
             updatedOn: searchResult.updatedOn
         )

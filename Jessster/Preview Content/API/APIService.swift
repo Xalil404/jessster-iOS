@@ -15,6 +15,12 @@ enum APIError: Error {
     case unknownError
 }
 
+// Struct to decode the response for like functionality
+struct LikeResponse: Decodable {
+    let liked: Bool
+    let likes_count: Int
+}
+
 class APIService {
     static let shared = APIService()  // Singleton instance
 
@@ -405,6 +411,90 @@ class APIService {
                 }
             }.resume()
         }
+    
+    // Fetch liked posts from the API
+    func fetchLikedPosts(completion: @escaping (Result<[Post], APIError>) -> Void) {
+        let urlString = "https://jessster-476efeac7498.herokuapp.com/api/user/liked-articles/"
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        // Assuming the user is authenticated and has a valid token
+        if let token = UserDefaults.standard.string(forKey: "authToken") {
+            request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(.networkError(error)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            do {
+                // Decode the response into an array of Post objects
+                let posts = try JSONDecoder().decode([Post].self, from: data)
+                completion(.success(posts))  // Return the list of liked posts
+            } catch {
+                completion(.failure(.decodingError(error)))
+            }
+        }
+        
+        task.resume()
+    }
+    
+
+    // Function to toggle like status for a post
+    func toggleLike(slug: String, completion: @escaping (Result<Bool, APIError>) -> Void) {
+        let urlString = "https://jessster-476efeac7498.herokuapp.com/api/posts/\(slug)/like/"
+        
+        print("Toggling like at URL: \(urlString)")
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // Assuming the user is authenticated and has a valid token
+        if let token = UserDefaults.standard.string(forKey: "authToken") {
+            request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(.networkError(error)))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+
+            do {
+                // Decode the response into LikeResponse struct
+                let result = try JSONDecoder().decode(LikeResponse.self, from: data)
+                completion(.success(result.liked))  // Return whether the post was liked/unliked
+            } catch {
+                completion(.failure(.decodingError(error)))
+            }
+        }
+        
+        task.resume()
+    }
+
     
 }
 
