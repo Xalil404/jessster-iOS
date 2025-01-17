@@ -89,12 +89,16 @@
                          .fontWeight(.bold)
                          .frame(maxWidth: .infinity)
                          .padding()
-                         .background(Color(red: 232/255, green: 191/255, blue: 115/255))
-                         .foregroundColor(.white)
+                         .background(Color.white)
+                         .foregroundColor(.black)
                          .cornerRadius(30)
-                         .padding(.horizontal, 40)
-                         .padding(.top, 20)
+                         .overlay(
+                                     RoundedRectangle(cornerRadius: 30) // Match the corner radius
+                                         .stroke(Color.black, lineWidth: 2) // Black border with 2pt width
+                                 )
                  }
+                 .padding(.horizontal, 40)
+                 .padding(.top, 20)
                  
                  // Divider
                  HStack {

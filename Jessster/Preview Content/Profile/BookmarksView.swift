@@ -119,6 +119,17 @@ struct BookmarksView: View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.top)
+                    
+                    Text("Articles that you like will appear here.")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .padding(.top)
+                    
+                    Image("sad")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 350, height: 350) // Adjust the size as needed
+                                .padding(.top, 16) // Add spacing between text and image
                 }
                 
                 Spacer()

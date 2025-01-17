@@ -15,9 +15,9 @@ struct OnboardingView: View {
     @Environment(\.colorScheme) var colorScheme
     
     private let onboardingData = [
-        OnboardingData(imageName: "Onboarding1", title: "On boarding feature 1", description: "Sed accumsan sit amet magna fringilla accumsan. Sed accumsan sit amet magna fringilla accumsan."),
-        OnboardingData(imageName: "Onboarding2", title: "On boarding feature 2", description: "Sed accumsan sit amet magna fringilla accumsan. Sed accumsan sit amet magna fringilla accumsan."),
-        OnboardingData(imageName: "Onboarding3", title: "On boarding feature 3", description: "Sed accumsan sit amet magna fringilla accumsan. Sed accumsan sit amet magna fringilla accumsan.")
+        OnboardingData(imageName: "Onboarding1", title: "Laughter, Anytime, Anywhere", description: "Discover the funniest news articles and videos from around the globe. Jessster is your daily dose of humor, keeping you smiling wherever you go!"),
+        OnboardingData(imageName: "Onboarding2", title: "Multilingual Fun", description: "Enjoy content in your preferred language! Jessster brings comedy to life in English, Russian, and Arabic, so you never miss a punchline."),
+        OnboardingData(imageName: "Onboarding3", title: "Save & Share the Laughter", description: "Found something hilarious? Save it for later or share the laughs with your friends in just a few taps. Jessster makes it easy!")
     ]
 
     var body: some View {

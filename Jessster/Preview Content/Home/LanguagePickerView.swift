@@ -14,8 +14,8 @@ struct LanguagePickerView: View {
     var body: some View {
         Picker("Select Language", selection: $selectedLanguage) {
             Text("English").tag("en")
-            Text("Russian").tag("ru")
-            Text("Arabic").tag("ar")
+            Text("Русский").tag("ru")
+            Text("عربي").tag("ar")
         }
         .pickerStyle(SegmentedPickerStyle())
         .padding()

@@ -167,10 +167,18 @@ struct SearchView: View {
                     }
                 } else if !isLoading {
                     // Show a message when no results are found
-                    Text("No results found.")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .padding(.top)
+                    VStack {
+                            Text("No results found.")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .padding(.top)
+                            
+                            Image("search") // Replace with the name of your image asset
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 350, height: 350) // Adjust the size as needed
+                                .padding(.top, 16) // Add some spacing between the text and the image
+                        }
                 }
                 
                 Spacer()

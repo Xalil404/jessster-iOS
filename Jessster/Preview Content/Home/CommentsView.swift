@@ -22,6 +22,25 @@ struct CommentsView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .padding()
+            } else if comments.isEmpty {
+                        // Empty state when no comments are available
+                        VStack {
+                            Text("No discussion yet.")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .padding(.top)
+                            
+                            Text("Be the first one to leave a comment.")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .padding(.top)
+
+                            Image("sad")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 350, height: 350) // Adjust size as needed
+                                .padding(.top, 16)
+                        }
             } else {
                 // Display comments if available
                 List(comments.reversed()) { comment in
@@ -144,7 +163,7 @@ struct CommentsView: View {
 
 struct CommentsView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentsView(postSlug: "tech-giant-introduces-new-feature-the-im-just-here-to-look-cool-mode")
+        CommentsView(postSlug: "https://www.jessster.com/posts/tech-giant-introduces-new-feature-the-im-just-here-to-look-cool-mode")
             .previewLayout(.sizeThatFits)
             .padding()
     }

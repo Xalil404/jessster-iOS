@@ -28,6 +28,7 @@ struct HomeView: View {
                     NavigationLink(destination: SearchView(), isActive: $showSearch) {
                         Image(systemName: "magnifyingglass") // Search icon
                             .padding()
+                            .font(.system(size: 24))
                             .foregroundColor(colorScheme == .dark ? .white : .black) // Icon color changes based on mode
                     }
                 }

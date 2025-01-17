@@ -29,6 +29,7 @@ struct ProfileView: View {
                 NavigationLink(destination: SettingsView()) {
                     Image(systemName: "gearshape") // Settings icon
                         .padding()
+                        .font(.system(size: 24))
                         .foregroundColor(colorScheme == .dark ? .white : .black) // Icon color changes based on mode
                 }
 
@@ -44,7 +45,7 @@ struct ProfileView: View {
                 Image("jessster") // Profile image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 150, height: 150)
+                    .frame(width: 250, height: 250)
                     .clipShape(Circle())
                     .padding(.bottom, 10)
 

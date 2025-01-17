@@ -30,6 +30,7 @@ struct SectionsView: View {
                     NavigationLink(destination: SearchView(), isActive: $showSearch) {
                         Image(systemName: "magnifyingglass") // Search icon
                             .padding()
+                            .font(.system(size: 24))
                             .foregroundColor(colorScheme == .dark ? .white : .black) // Icon color changes based on mode
                     }
                     
@@ -41,15 +42,15 @@ struct SectionsView: View {
                 LanguagePickerView(selectedLanguage: $selectedLanguage)
 
                 // Most Viewed Posts Section (Card Style)
-                SectionCardView(title: "Most Viewed Posts", imageName: "jessster", destination: MostViewedPostsView(language: selectedLanguage))
+                SectionCardView(title: "Most Viewed Posts", imageName: "Onboarding1", destination: MostViewedPostsView(language: selectedLanguage))
                     .padding(.top)
 
                 // Most Liked Posts Section (Card Style)
-                SectionCardView(title: "Most Liked Posts", imageName: "logo", destination: MostLikedPostsView(language: selectedLanguage))
+                SectionCardView(title: "Most Liked Posts", imageName: "Onboarding2", destination: MostLikedPostsView(language: selectedLanguage))
                     .padding(.top)
 
                 // Most Commented Posts Section (Card Style)
-                SectionCardView(title: "Most Commented Posts", imageName: "jessster", destination: MostCommentedPostsView(language: selectedLanguage))
+                SectionCardView(title: "Most Commented Posts", imageName: "Onboarding3", destination: MostCommentedPostsView(language: selectedLanguage))
                     .padding(.top)
                 
                 Spacer()
