@@ -83,7 +83,7 @@ struct VideoTabView: View {
                                         ShareLink(item: URL(string: "https://res.cloudinary.com/dbm8xbouw/\(videos[index].video)")!) {
                                             Label("Share Video", systemImage: "square.and.arrow.up")
                                         }
-                                        .foregroundColor(.black)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                         .padding(.top, 8)
                                     }
                                     .padding([.leading, .trailing], 8)

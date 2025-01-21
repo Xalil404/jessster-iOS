@@ -85,12 +85,12 @@ struct PostDetailView: View {
                     padding-left: 25px; /* Add space on the left */
                     padding-right: 25px;
                 }
-                .content {
-                    font-size: 46px;
+                .content, p, div, span {
+                    font-size: 46px !important; 
                     margin-bottom: 16px;
                     line-height: 1.6;
-                    padding-left: 25px; /* Add space on the left */
-                    padding-right: 25px;
+                    padding-left: 10px; /* Add space on the left */
+                    padding-right: 10px;
                 }
                 .views {
                     font-size: 36px;
