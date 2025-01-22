@@ -66,6 +66,7 @@ struct PostDetailView: View {
                     font-family: Arial, sans-serif;
                     margin: 0;
                     padding: 20px;
+                    padding-bottom: 250px; /* Adds padding at the bottom of the page */
                 }
                 img {
                     max-width: 100%;
@@ -97,6 +98,37 @@ struct PostDetailView: View {
                     color: #888;
                     text-align: center;
                 }
+        
+                .banner {
+                            margin: 40px 0;
+                            padding: 20px;
+                            text-align: center;
+                            background-color: #FFD700;
+                            border-radius: 20px;
+                        }
+                        .banner h2 {
+                            font-size: 48px;
+                            font-weight: bold;
+                            margin-bottom: 16px;
+                        }
+                        .banner p {
+                            font-size: 38px;
+                            margin-bottom: 16px;
+                        }
+                        .banner a {
+                            display: inline-block;
+                            font-size: 38px;
+                            padding: 10px 20px;
+                            color: white;
+                            background-color: green;
+                            border-radius: 16px;
+                            text-decoration: none;
+                            margin-bottom: 40px; /* Adds space beneath the Donate button */
+                        }
+                        .banner a:hover {
+                            background-color: darkgreen;
+                        }
+        
             </style>
         </head>
         <body>
@@ -105,6 +137,13 @@ struct PostDetailView: View {
             <p class="excerpt">\("Excerpt: \(post.excerpt)")</p>
             <div class="content">\(post.content)</div>
             <p class="views">Views: \(post.numberOfViews)</p>
+        
+            <div class="banner">
+                    <h2>Support Jessster!</h2>
+                    <p>Show your appreciation to this platform by making a contribution. Every penny counts.</p>
+                    <a href="https://www.jessster.com/donate">Donate</a>
+                </div>
+        
         </body>
         </html>
         """
