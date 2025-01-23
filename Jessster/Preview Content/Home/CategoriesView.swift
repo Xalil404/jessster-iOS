@@ -139,25 +139,6 @@ struct CategoryButtonView: View {
 }
 
 
-/* Original categories
-struct CategoryButtonView: View {
-    var category: Category
-    @Binding var selectedCategory: Category?
-
-    var body: some View {
-        Button(action: {
-            selectedCategory = category
-        }) {
-            Text(category.name)
-                .padding()
-                .background(selectedCategory == category ? Color.black : Color.gray.opacity(0.2)) // Change color when selected
-                .foregroundColor(selectedCategory == category ? .white : .black) // Change text color when selected
-                .cornerRadius(10)
-        }
-    }
-}
-*/
-
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         CategoriesView()
