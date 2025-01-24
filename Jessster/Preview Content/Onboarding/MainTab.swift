@@ -4,6 +4,7 @@
 //
 //  Created by TEST on 10.01.2025.
 //
+
 import SwiftUI
 
 struct MainTab: View {
@@ -37,42 +38,44 @@ struct MainTab: View {
     }
 
     var body: some View {
-        TabView {
-            // Placeholder for BirthdayListView
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-            
-            VideoTabView()
-                .tabItem {
-                    Label("Video", systemImage: "video.fill")
-                }
-            
-            SectionsView()
-                .tabItem {
-                    Label("Categories", systemImage: "square.grid.2x2")
-                }
-            
-            // Always show the Account tab, but switch between ProfileView and WelcomeView based on authentication status
-            Group {
-                if isAuthenticated {
-                    ProfileView()
-                        .tabItem {
-                            Label("Profile", systemImage: "person.fill")
-                        }
-                } else {
-                    WelcomeView()
-                        .tabItem {
-                            Label("Account", systemImage: "person.fill")
-                        }
+            TabView {
+             
+                HomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house.fill")
+                    }
+                
+                VideoTabView()
+                    .tabItem {
+                        Label("Video", systemImage: "video.fill")
+                    }
+                
+                SectionsView()
+                    .tabItem {
+                        Label("Categories", systemImage: "square.grid.2x2")
+                    }
+                
+                // Always show the Account tab, but switch between ProfileView and WelcomeView based on authentication status
+                Group {
+                    if isAuthenticated {
+                        ProfileView()
+                            .tabItem {
+                                Label("Profile", systemImage: "person.fill")
+                            }
+                    } else {
+                        WelcomeView()
+                            .tabItem {
+                                Label("Account", systemImage: "person.fill")
+                            }
+                    }
                 }
             }
-        }
+        
         .onAppear {
             // Check authentication status when MainTab appears
             isAuthenticated = UserDefaults.standard.bool(forKey: "isAuthenticated")
         }
+ .environment(\.horizontalSizeClass, .compact) // Force compact layout on iPads
     }
 }
 
